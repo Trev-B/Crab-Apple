@@ -22,23 +22,24 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log(`User ${socket.id} has joined`);
   userList.add(socket.id);
+  console.log(`User ${socket.id} has joined`);
   console.log(userList);
 
-  socket.emit('connected', socket.id, gameState);
+  socket.emit('connected', socket.id, sendCurrentPlayers(userList));
   io.emit('player-joined', sendCurrentPlayers(userList));
 
-  socket.on('game-state-changed', (state) => {
-    console.log(state);
-    gameState.name = state;
-    io.emit('game-state-changed', gameState);
-  });
+  // socket.on('game-state-changed', (state) => {
+  //   console.log(state);
+  //   gameState.name = state;
+  //   io.emit('game-state-changed', gameState);
+  // });
 
   socket.on('disconnect', () => {
     userList.delete(socket.id);
     io.emit('player-left', sendCurrentPlayers(userList));
     console.log(`User ${socket.id} has left`);
+    console.log(userList);
   });
 });
 
