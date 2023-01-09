@@ -1,12 +1,20 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { joinRoomApi } from '../utils/connect';
 
 const JoinGameMenu = () => {
   const [gameId, setGameId] = useState();
+  const nav = useNavigate();
 
-  const joinGame = (e) => {
+  const joinGame = async (e) => {
     e.preventDefault();
     console.log(gameId);
+    const room = await joinRoomApi(gameId);
+    if (!room) {
+      // console.log(`Room ${gameId} not found`);
+      return;
+    }
+    nav(`/player-game-lobby/${room}`);
   };
 
   return (

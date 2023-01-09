@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { createRoomApi } from '../utils/connect';
 
 const CreateGame = () => {
   const nav = useNavigate();
 
-  const createGameLobby = (e) => {
-    console.log('lobby created');
-    nav('/game-lobby');
+  const createGameLobby = async (e) => {
+    const room = await createRoomApi();
+    console.log(`room ${room} created`);
+    nav(`/host-game-lobby/${room}`);
   };
 
   return (

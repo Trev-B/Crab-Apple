@@ -6,7 +6,8 @@ import NavBar from './components/NavBar';
 import CreateGameMenu from './components/CreateGameMenu';
 import JoinGameMenu from './components/JoinGameMenu';
 import Home from './components/Home';
-import GameLobby from './components/GameLobby';
+import HostGameLobby from './components/HostGameLobby';
+import PlayerGameLobby from './components/PlayerGameLobby';
 import { Route, Routes } from 'react-router-dom';
 // import { io } from 'socket.io-client';
 // const socket = io('ws://localhost:5000');
@@ -74,7 +75,8 @@ function App() {
         {/* <Route path='/login' element={<Login setLoggedIn={setLoggedIn} />} /> */}
         <Route path='/create-game' element={<CreateGameMenu />} />
         <Route path='/join-game' element={<JoinGameMenu />} />
-        <Route path='/game-lobby' element={<GameLobby />}></Route>
+        <Route path='/host-game-lobby/:id' element={<HostGameLobby />} />
+        <Route path='/player-game-lobby/:id' element={<PlayerGameLobby />} />
       </Routes>
     </div>
   );
